@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISTORIA — Coffee becomes memories</title>
+    <meta
+      name="description"
+      content="ISTORIA Coffee. A place where coffee becomes memories. Every table holds another chapter. Every cup begins another memory."
+    />
+    <meta name="theme-color" content="#16110c" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ISTORIA Coffee" />
+    <meta
+      property="og:description"
+      content="A living collection of human stories. Where coffee becomes memories."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts: editorial serif + refined grotesque -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Hide native cursor on pointer devices for the custom cursor */
+      @media (hover: hover) and (pointer: fine) {
+        .cursor-none-fine,
+        .cursor-none-fine * {
+          cursor: none;
+        }
+      }
+      html.lenis,
+      html.lenis body {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

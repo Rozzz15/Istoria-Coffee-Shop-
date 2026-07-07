@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  /* Warm, editorial, cinematic palette */
+  --color-cream: #f4ece1;
+  --color-paper: #ece0d1;
+  --color-linen: #e4d6c4;
+  --color-espresso: #2a1d12;
+  --color-coffee: #3d2b1d;
+  --color-walnut: #6f4f37;
+  --color-umber: #8a6240;
+  --color-amber: #c08a4a;
+  --color-honey: #d6a85c;
+  --color-terracotta: #b5643f;
+  --color-ember: #9c4a2e;
+  --color-smoke: #1a140e;
+  --color-night: #120d08;
+  --color-fog: #b8a892;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Easing — slow, expensive feeling */
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-cream);
+  color: var(--color-espresso);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  /* subtle paper warmth */
+  background-image: radial-gradient(
+    120% 80% at 50% -10%,
+    #f7f1e8 0%,
+    #efe5d6 45%,
+    #e7dac7 100%
+  );
+}
+
+::selection {
+  background: var(--color-umber);
+  color: var(--color-cream);
+}
+
+/* Thin cinematic scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reusable atmosphere                                                */
+/* ------------------------------------------------------------------ */
+
+/* Film grain overlay */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 8s steps(8) infinite;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-4%, -4%);
+  }
+  30% {
+    transform: translate(3%, -2%);
+  }
+  50% {
+    transform: translate(-2%, 3%);
+  }
+  70% {
+    transform: translate(4%, 2%);
+  }
+  90% {
+    transform: translate(-3%, -3%);
+  }
+}
+
+/* Vignette to draw the eye inward, like a lens */
+.vignette::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 50%,
+    transparent 55%,
+    rgba(20, 13, 8, 0.28) 100%
+  );
+}
+
+/* Warm photographic duotone wash for images */
+.img-wash {
+  filter: saturate(0.92) contrast(1.03) brightness(0.97) sepia(0.06);
+}
+
+/* Letter-spaced eyebrow labels */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--color-umber);
+}
+
+/* Hover line reveal for links */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-silk);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Custom cursor ring */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s var(--ease-silk), height 0.4s var(--ease-silk),
+    background-color 0.4s var(--ease-silk), border-color 0.4s var(--ease-silk);
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .grain::after {
+    animation: none;
+  }
+}
+
+/* Section anchor offset handled by JS smooth scroll */
